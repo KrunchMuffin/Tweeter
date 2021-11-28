@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Meta Information -->
+	<title>Tweeter - Home Page</title>
+
+	<!-- External CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous"
+		  referrerpolicy="no-referrer"/>
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+	<!-- App CSS -->
+	<link rel="stylesheet" href="styles/layout.css" type="text/css"/>
+	<!--	Nav CSS-->
+	<link rel="stylesheet" href="styles/nav.css" type="text/css">
+	<!--	header css-->
+	<link rel="stylesheet" href="styles/header.css" type="text/css">
+	<!--	new-tweet css-->
+	<link rel="stylesheet" href="styles/new-tweet.css" type="text/css">
+	<!--	tweets css-->
+	<link rel="stylesheet" href="styles/tweets.css" type="text/css">
+	<!-- External JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous"
+			referrerpolicy="no-referrer"></script>
+	<!-- App JS -->
+	<script type="text/javascript" src="scripts/client.js"></script>
+</head>
+
+<body>
+<!-- Top nav bar (fixed) -->
+<nav>
+	<span>tweeter</span>
+	<span class="write-tweet">
+		<span class="bold">Write</span>&nbsp;a tweet!
+		<i class="fa fa-angle-double-down red"></i>
+	</span>
+</nav>
+<header class="site-header">
+	<div>
+		<img src="images/profile-hex.png" alt="profile pic">
+	</div>
+	<div>
+		<h2 class="white">Derek <span class="thin-font">Bowes</span></h2>
+	</div>
+</header>
+<!-- Page-specific (main) content here -->
+<main class="container">
+	<section class="new-tweet">
+		<h2>Compose Tweet</h2>
+		<form class="form-horizontal" action="/tweets" method="POST">
+			<label for="tweet-text">What are you humming about?</label>
+			<textarea name="text" id="tweet-text"></textarea>
+			<hr class="heavy-line">
+			<div>
+				<button type="submit" class="styled-button">Tweet</button>
+				<output name="counter" class="counter" for="tweet-text">140</output>
+			</div>
+		</form>
+	</section>
+	<article class="tweet">
+		<header>
+			<span class="realname"><img src="images/icons8-face-smile-64.png" alt="Newton"> Newton</span>
+			<span class="username"><a href="users/SirIsaac">@SirIsaac</a></span>
+		</header>
+		<p class="bold tweet-text">If I have seen further it is by standing on the shoulders of giants</p>
+		<footer>
+			<span class="date-tweeted" data-datetime="1638129445032">10 days ago</span>
+			<span class="actions">
+				<i class="fa fa-flag"></i>
+				<i class="fa fa-retweet"></i>
+				<i class="fa fa-heart"></i>
+			</span>
+		</footer>
+	</article>
+	<footer></footer>
+</main>
+</body>
+<script>
+	const els = document.querySelectorAll('.date-tweeted');
+	els.forEach(function(el, idx) {
+		el.innerHTML = timeago.format(el.dataset.datetime);
+	});
+</script>
+</html>

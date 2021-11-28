@@ -1,0 +1,8 @@
+node_modules/
+.env
+.DS_Store
+.idea/inspectionProfiles/Project_Default.xml
+.idea/modules.xml
+.idea/tweeter.iml
+.idea/workspace.xml
+.github/
