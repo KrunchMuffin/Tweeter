@@ -9,6 +9,7 @@ article.tweet {
     align-items: flex-start;
     width: 100%;
     border: 4px solid #545149;
+    margin-bottom: 20px;
 }
 
 article.tweet header {

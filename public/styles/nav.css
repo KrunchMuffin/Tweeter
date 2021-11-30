@@ -18,6 +18,13 @@ nav > span {
 
 }
 
+.fixed-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
 .write-tweet {
     font-family: inherit;
     padding: 0 1.5em 0 0;

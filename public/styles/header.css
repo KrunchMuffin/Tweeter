@@ -1,9 +1,9 @@
 header.site-header {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
     width: 100%;
     min-height: 400px;
+    margin-top: 120px;
     background: url(/images/asfalt-light.png) #5c008a;
 }
