@@ -1,47 +1,85 @@
+// noinspection JSCheckFunctionSignatures
+
 /*
  * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-'use strict';
+// make the form object global to allow all scripts access to it, so we keep it DRY
+window.formObj = undefined;
+window.tweetCont = undefined;
 
-// don't need this any longer since we do it in the createTweetElement
-// document.addEventListener('DOMContentLoaded', function() {
-//   // start DOM loaded stuff. jquery = badnews and dead
-//   const els = document.querySelectorAll('.date-tweeted');
-//   els.forEach(function(el, idx) {
-//     el.innerHTML = timeago.format(el.dataset.datetime);
-//   });
-//
-// }, false);
+function ready(callbackFunc) {
+  if (document.readyState !== 'loading') {
+    // Document is already ready, call the callback directly
+    callbackFunc();
+  } else {
+    // All modern browsers to register DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', callbackFunc);
+  }
+}
 
-// Test / driver code (temporary). Eventually will get this from the server.
-// since we already have a data file, just import it instead of duplicating it in here
-const tweetData = [
-  {
-    'user': {
-      'name': 'Newton',
-      'avatars': 'https://i.imgur.com/73hZDYK.png',
-      'handle': '@SirIsaac',
-    },
-    'content': {
-      'text': 'If I have seen further it is by standing on the shoulders of giants',
-    },
-    'created_at': 1638037126990,
-  },
-  {
-    'user': {
-      'name': 'Descartes',
-      'avatars': 'https://i.imgur.com/nlhLi3I.png',
-      'handle': '@rd',
-    },
-    'content': {
-      'text': 'Je pense , donc je suis',
-    },
-    'created_at': 1638123526990,
-  },
-];
+const loadTweets = () => {
+  axios.get('/tweets').then(function(res) {
+    console.log(res.data);
+    renderTweets(res.data);
+  });
+};
+
+function checkForErrors() {
+  const tbElval = document.getElementById('tweet-text').value.trim();
+  let errArray = [];
+  if (tbElval.length > 140) {
+    errArray.push('Text must be less than 140 characters.');
+  }
+  if (tbElval.length === 0) {
+    errArray.push('Text must not be empty.');
+  }
+  return errArray;
+}
+
+const postTweet = event => {
+  // prevent default form submit
+  event.preventDefault();
+  const hasError = checkForErrors();
+  if (hasError.length) {
+    //alert('Please fix the following errors:');
+    document.getElementById('errors').innerHTML = '';
+    hasError.forEach(error => {
+      document.getElementById('errors').innerHTML = error;
+    });
+
+    return;
+  }
+  // serialze form data
+  let formData = new FormData(event.target);
+  // POST the data
+  axios.post('/tweets', new URLSearchParams(formData).toString(),
+  ).then(function(response) {
+    loadTweets();
+  }).catch(function(e) {
+    console.log(e);
+  });
+};
+
+const renderTweets = tweetData => {
+  // loops through tweets
+  // calls createTweetElement for each tweet
+  // takes return value and appends it to the tweets container
+  window.tweetCont.innerHTML = '';
+  tweetData.forEach(tweet => {
+    window.tweetCont.insertAdjacentHTML('beforeend', createTweetElement(tweet));
+  });
+};
+
+ready(() => {
+  //do this after dom fully loaded
+  window.formObj = document.getElementById('frmNewTweet');
+  // listen for the submit event and run the function
+  window.formObj.addEventListener('submit', postTweet);
+  // get and store tweet container object globally
+  window.tweetCont = document.getElementById('tweets-container');
+  loadTweets();
+});
 
 const createTweetElement = tweetData => `
   	<article class="tweet">
@@ -60,14 +98,19 @@ const createTweetElement = tweetData => `
 		</footer>
 	</article>
   `;
-const renderTweets = tweets => {
-  // loops through tweets
-  // calls createTweetElement for each tweet
-  // takes return value and appends it to the tweets container
-  const tweetCont = document.getElementById('tweets-container');
-  tweets.forEach(tweet => {
-    tweetCont.insertAdjacentHTML('beforeend', createTweetElement(tweet));
-  });
-};
 
-renderTweets(tweetData);
+// Great little function to serialize FormData data
+// function serialize(data) {
+//   let obj = {};
+//   for (let [key, value] of data) {
+//     if (obj[key] !== undefined) {
+//       if (!Array.isArray(obj[key])) {
+//         obj[key] = [obj[key]];
+//       }
+//       obj[key].push(value);
+//     } else {
+//       obj[key] = value;
+//     }
+//   }
+//   return obj;
+// }
