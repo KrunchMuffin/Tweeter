@@ -33,7 +33,7 @@ const checkForErrors = () => {
   const tbElval = document.getElementById('tweet-text').value.trim();
   let errArray = [];
   if (tbElval.length > 140) {
-    errArray.push('Text must be less than 140 characters.');
+    errArray.push('Text must be 140 characters or less.');
   }
   if (tbElval.length === 0) {
     errArray.push('Text must not be empty.');

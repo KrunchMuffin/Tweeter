@@ -4,17 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const counterEl = document.getElementById('counter');
 
   const countChars = function() {
-    let theCnt = tweetTextEl.value.length;
+    let theCnt = parseInt(tweetTextEl.value.length);
     if (theCnt >= 0 && theCnt <= 140) {
       counterEl.classList.remove('red');
-      counterEl.innerHTML = theCnt;
     } else if (theCnt > 140) {
-      counterEl.innerHTML = (140 - parseInt(theCnt)).toString();
       counterEl.classList.add('red');
     }
+    counterEl.innerHTML = (140 - theCnt).toString();
   };
-  window.addEventListener('mouseup', countChars, false);
-  window.addEventListener('keyup', countChars, false);
+  window.addEventListener('mousedown', countChars, false);
+  window.addEventListener('keydown', countChars, false);
   window.addEventListener('paste', countChars, false);
 
   // tweetTextEl.addEventListener('keyup paste mouseup', () => {
