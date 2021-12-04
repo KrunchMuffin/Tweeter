@@ -71,10 +71,6 @@ main footer {
   padding-bottom: 100px;
 }
 
-.hide {
-  display: none;
-}
-
 .point {
   cursor: pointer;
 }

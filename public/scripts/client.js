@@ -1,3 +1,4 @@
+/* global axios, sanitizeHTML, timeago*/
 // noinspection JSCheckFunctionSignatures
 
 /*
@@ -8,7 +9,7 @@
 window.formObj = undefined;
 window.tweetCont = undefined;
 
-function ready(callbackFunc) {
+const ready = callbackFunc => {
   if (document.readyState !== 'loading') {
     // Document is already ready, call the callback directly
     callbackFunc();
@@ -16,7 +17,7 @@ function ready(callbackFunc) {
     // All modern browsers to register DOMContentLoaded
     document.addEventListener('DOMContentLoaded', callbackFunc);
   }
-}
+};
 
 const loadTweets = () => {
   axios.get('/tweets').then(function(res) {
@@ -28,7 +29,7 @@ const loadTweets = () => {
   });
 };
 
-function checkForErrors() {
+const checkForErrors = () => {
   const tbElval = document.getElementById('tweet-text').value.trim();
   let errArray = [];
   if (tbElval.length > 140) {
@@ -38,7 +39,7 @@ function checkForErrors() {
     errArray.push('Text must not be empty.');
   }
   return errArray;
-}
+};
 
 const postTweet = event => {
   // prevent default form submit
@@ -49,6 +50,7 @@ const postTweet = event => {
     const errElObj = document.getElementById('errors');
     errElObj.innerHTML = '';
     hasError.forEach(error => {
+      // noinspection JSValidateTypes
       errElObj.innerHTML = error;
     });
     return;
@@ -57,7 +59,7 @@ const postTweet = event => {
   let formData = new FormData(event.target);
   // POST the data
   axios.post('/tweets', new URLSearchParams(formData).toString(),
-  ).then(function(response) {
+  ).then(function() {
     // clear the textarea after submit
     document.getElementById('tweet-text').value = '';
     loadTweets();
@@ -84,7 +86,7 @@ ready(() => {
   window.tweetCont = document.getElementById('tweets-container');
   loadTweets();
   document.getElementById('back2Top').scrollTop = 0;
-  document.getElementById('writeTweet').addEventListener('click', function(event) {
+  document.getElementById('writeTweet').addEventListener('click', function() {
     document.getElementById('tweet-text').focus();
   });
 });

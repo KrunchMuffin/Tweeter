@@ -19,6 +19,7 @@
     "md5": "^2.1.0"
   },
   "devDependencies": {
+    "eslint": "8.4.0",
     "nodemon": "^1.9.2",
     "sass": "^1.44.0"
   }

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const tweetTextEl = document.getElementById('tweet-text');
   const counterEl = document.getElementById('counter');
 
-  const countChars = function(event) {
+  const countChars = function() {
     let theCnt = tweetTextEl.value.length;
     if (theCnt >= 0 && theCnt <= 140) {
       counterEl.classList.remove('red');
