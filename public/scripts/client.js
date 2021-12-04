@@ -20,8 +20,11 @@ function ready(callbackFunc) {
 
 const loadTweets = () => {
   axios.get('/tweets').then(function(res) {
-    console.log(res.data);
-    renderTweets(res.data);
+    let data = res.data;
+    data.sort(function(a, b) {
+      return b.created_at - a.created_at;
+    });
+    renderTweets(data);
   });
 };
 
@@ -43,11 +46,11 @@ const postTweet = event => {
   const hasError = checkForErrors();
   if (hasError.length) {
     //alert('Please fix the following errors:');
-    document.getElementById('errors').innerHTML = '';
+    const errElObj = document.getElementById('errors');
+    errElObj.innerHTML = '';
     hasError.forEach(error => {
-      document.getElementById('errors').innerHTML = error;
+      errElObj.innerHTML = error;
     });
-
     return;
   }
   // serialze form data
@@ -55,6 +58,8 @@ const postTweet = event => {
   // POST the data
   axios.post('/tweets', new URLSearchParams(formData).toString(),
   ).then(function(response) {
+    // clear the textarea after submit
+    document.getElementById('tweet-text').value = '';
     loadTweets();
   }).catch(function(e) {
     console.log(e);
@@ -64,7 +69,6 @@ const postTweet = event => {
 const renderTweets = tweetData => {
   // loops through tweets
   // calls createTweetElement for each tweet
-  // takes return value and appends it to the tweets container
   window.tweetCont.innerHTML = '';
   tweetData.forEach(tweet => {
     window.tweetCont.insertAdjacentHTML('beforeend', createTweetElement(tweet));
@@ -84,10 +88,10 @@ ready(() => {
 const createTweetElement = tweetData => `
   	<article class="tweet">
 		<header>
-			<span class="realname"><img src="${tweetData.user.avatars}" alt="${tweetData.user.name}"> ${tweetData.user.name}</span>
-			<span class="username"><a href="users/${tweetData.user.handle}">${tweetData.user.name}</a></span>
+			<span class="realname"><img src="${tweetData.user.avatars ? `${tweetData.user.avatars}` : '/public/images/icons8-frog-face-48.png'}" alt="${tweetData.user.name}"> ${tweetData.user.name}</span>
+			<span class="username"><a href="users/${tweetData.user.handle}">${tweetData.user.handle}</a></span>
 		</header>
-		<p class="bold tweet-text">${tweetData.content.text}</p>
+		<p class="bold tweet-text">${sanitizeHTML(tweetData.content.text)}</p>
 		<footer>
 			<span class="date-tweeted">${timeago.format(tweetData.created_at)}</span>
 			<span class="actions">

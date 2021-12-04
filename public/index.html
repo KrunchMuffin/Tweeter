@@ -28,7 +28,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous"
 			referrerpolicy="no-referrer"></script>
 	<!-- App JS -->
-	<script type="module" src="scripts/client.js"></script>
+	<script src="scripts/utils.js"></script>
+	<script src="scripts/client.js"></script>
 	<script src="scripts/composer-char-counter.js"></script>
 </head>
 
@@ -38,36 +39,38 @@
 	<span>tweeter</span>
 	<span class="write-tweet">
 		<span class="bold">Write</span>&nbsp;a tweet!
-		<i class="fa fa-angle-double-down red"></i>
+		<i class="fa fa-angle-double-down red bounce"></i>
 	</span>
 </nav>
-<header class="site-header">
-	<div>
-		<img src="images/profile-hex.png" alt="profile pic">
-	</div>
-	<div>
-		<h2 class="white">Derek <span class="thin-font">Bowes</span></h2>
-	</div>
-</header>
-<!-- Page-specific (main) content here -->
-<main class="container">
-	<section class="new-tweet">
-		<h2>Compose Tweet</h2>
+<div class="wrapper">
+	<header class="site-header">
+		<div class="profile-pic-container">
+			<img src="images/profile-hex.png" alt="profile pic">
+		</div>
+		<div>
+			<h2 class="white">Derek <span class="thin-font">Bowes</span></h2>
+		</div>
+	</header>
+	<!-- Page-specific (main) content here -->
+	<main class="container">
+		<section class="new-tweet">
+			<h2>Compose Tweet</h2>
 
-		<form class="form-horizontal" id="frmNewTweet">
-			<label for="tweet-text">What are you humming about?</label>
-			<textarea autofocus name="text" id="tweet-text"></textarea>
-			<hr class="heavy-line">
-			<div>
-				<button type="submit" class="styled-button">Tweet</button>
-				<output name="counter" id="counter" class="counter" for="tweet-text">140</output>
-			</div>
-		</form>
-		<output name="errors" id="errors" class="red"></output>
-	</section>
-	<!--tweets go here-->
-	<section id="tweets-container"></section>
-	<footer></footer>
-</main>
+			<form class="form-horizontal" id="frmNewTweet">
+				<label for="tweet-text">What are you humming about?</label>
+				<textarea autofocus name="text" id="tweet-text"></textarea>
+				<hr class="heavy-line">
+				<div>
+					<button type="submit" class="styled-button point">Tweet</button>
+					<output name="counter" id="counter" class="counter" for="tweet-text">140</output>
+				</div>
+			</form>
+			<output name="errors" id="errors" class="red"></output>
+		</section>
+		<!--tweets go here-->
+		<section id="tweets-container"></section>
+		<footer></footer>
+	</main>
+</div>
 </body>
 </html>

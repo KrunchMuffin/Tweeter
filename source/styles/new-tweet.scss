@@ -1,6 +1,8 @@
+@import "_variables.scss";
+
 .styled-button {
-  font-family: Bungee, "Source Sans Pro", Bungee, sans-serif;
-  font-size: 0.8em;
+  font-family: Bungee, $font-stack;
+  font-size: .8em;
   color: #fff;
   background-color: #4056a1;
   border: 0;

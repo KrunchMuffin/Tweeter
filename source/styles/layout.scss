@@ -3,6 +3,8 @@
  * https://css-tricks.com/international-box-sizing-awareness-day/
  * Do not modify these two selectors, please
  */
+@import "_variables.scss";
+
 html {
   box-sizing: border-box;
 }
@@ -14,10 +16,12 @@ html {
 /*
  * Global layout stuff
  */
+
 body {
-  color: #545149;
-  background-color: #f4f1ec;
-  font: 24px "Source Sans Pro", Bungee, sans-serif;
+  color: $body-color;
+  background-color: $body-bkg-color;
+  //font-size: 24px;
+  font: 24px $font-stack;
 }
 
 /*
@@ -48,7 +52,7 @@ body {
   width: 90%;
   align-content: center;
   align-items: center;
-  background-color: #f4f1ec;
+  background-color: $body-bkg-color;
   height: 100%;
 }
 
@@ -68,7 +72,7 @@ a {
 }
 
 main footer {
-  padding-bottom: 100px;
+  padding-bottom: 100px
 }
 
 .hide {

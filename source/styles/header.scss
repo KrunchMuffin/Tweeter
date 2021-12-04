@@ -1,3 +1,5 @@
+@import "_variables.scss";
+
 header.site-header {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,7 @@ header.site-header {
   width: 100%;
   min-height: 400px;
   margin-top: 120px;
-  background: url(/images/asfalt-light.png) #5c008a;
+  background: url(/images/asfalt-light.png) $purple;
 }
 
 .profile-pic-container {

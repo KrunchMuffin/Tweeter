@@ -1,12 +1,15 @@
+@import "_variables.scss";
+
 nav {
   min-height: 120px;
-  background-color: #4056a1;
+  background-color: $header-blue-bkg;
   color: #fff;
   padding: 0 1.5em 0 1.5em;
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+
 }
 
 nav > span {
@@ -14,6 +17,7 @@ nav > span {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
 }
 
 .fixed-nav-bar {
@@ -31,6 +35,7 @@ nav > span {
   flex-direction: row;
   align-items: center;
   float: right;
+
 }
 
 .write-tweet > i {
