@@ -83,6 +83,10 @@ ready(() => {
   // get and store tweet container object globally
   window.tweetCont = document.getElementById('tweets-container');
   loadTweets();
+  document.getElementById('back2Top').scrollTop = 0;
+  document.getElementById('writeTweet').addEventListener('click', function(event) {
+    document.getElementById('tweet-text').focus();
+  });
 });
 
 const createTweetElement = tweetData => `
